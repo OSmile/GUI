@@ -5,6 +5,7 @@ class PasswordField : public GUIBox
 {
 private:
 	friend class GUILayer;
+	bool press = false; ///< Переменная для проверки нажатия во время печати
 	std::string text; ///< Ввод строки в поле пароля
 	std::string textIn; ///< Исходная строка, которая задается при вызове
 	Text txt;  ///< Вывод строки поля пароля          

@@ -90,13 +90,18 @@ void PasswordField::handleEvent(const sf::Event& event)
 			Vector2i mouse = Mouse::getPosition(*renderWindow);
 			Inside(mouse);
 			InsideButt(mouse);
-			
-			if (Inside(mouse) && !InsideButt(mouse))
+			if (Inside(mouse) && press == false)
+			{
 				text = "";
+				press = true;
+			}
+			if (Inside(mouse) && !InsideButt(mouse))
+				fieldPass = true;
 			else
 				if (!InsideButt(mouse))
 				{
 					text = textIn;
+					press = false;
 				}
 			
 			if (InsideButt(mouse))
@@ -124,7 +129,7 @@ void PasswordField::handleEvent(const sf::Event& event)
 	if (event.type == sf::Event::TextEntered)
 	{
 		Vector2i mouse = Mouse::getPosition(*renderWindow); 
-		if (Inside(mouse)) 
+		if (fieldPass)
 		{
 			
 			if (event.text.unicode < 128 && event.text.unicode != 8 && event.text.unicode != 13)
@@ -177,6 +182,7 @@ void PasswordField::handleEvent(const sf::Event& event)
 						{
 							text = "Right Password!";
 							txt.setString(text);
+							press = false;
 							vect.clear();
 						}
 					}
@@ -184,6 +190,7 @@ void PasswordField::handleEvent(const sf::Event& event)
 					{
 						text = "False Password!";
 						txt.setString(text);
+						press = false;
 						vect.clear();
 
 					}
